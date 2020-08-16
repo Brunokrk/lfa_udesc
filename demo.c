@@ -1,39 +1,139 @@
-#include <graphviz.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define TAM 100
 
-int main(int argc, char **argv)
-{
-    Agraph_t *g;
-    Agnode_t *n, *m;
-    Agedge_t *e;
-    GVC_t *gvc;
+void inicio (char word[TAM], size_t size);
+void q0(size_t cont, char word[TAM], size_t size);
+void q1(size_t cont, char word[TAM], size_t size);
+void q2(size_t cont, char word[TAM], size_t size);
+void q3(size_t cont, char word[TAM], size_t size);
+void q4(size_t cont, char word[TAM], size_t size);
+void q5(size_t cont, char word[TAM], size_t size);
+void qFim();
+void qErro();
 
-    /* set up a graphviz context */
-    gvc = gvContext();
-
-    /* parse command line args - minimally argv[0] sets layout engine */
-    gvParseArgs(gvc, argc, argv);
-
-    /* Create a simple digraph */
-    g = agopen("g", Agdirected, 0);
-    n = agnode(g, "n", 1);
-    m = agnode(g, "m", 1);
-    e = agedge(g, n, m, 0, 1);
-
-    /* Set an attribute - in this case one that affects the visible rendering */
-    agsafeset(n, "color", "red", "");
-
-    /* Compute a layout using layout engine from command line args */
-    gvLayoutJobs(gvc, g);
-
-    /* Write the graph according to -T and -o options */
-    gvRenderJobs(gvc, g);
-
-    /* Free layout data */
-    gvFreeLayout(gvc, g);
-
-    /* Free graph structures */
-    agclose(g);
-
-    /* close output file, free context, and return number of errors */
-    return (gvFreeContext(gvc));
+int main (){
+    char word[TAM];
+    char flag[] = "exit";
+    size_t size = 0;
+    while(1){
+        printf("Informe uma palavra: \n");
+        gets(word);
+        fflush(stdin);
+        if(strcmp(word, flag)==0){
+            printf("Finalizando...\n");
+            break;
+        }else{
+            while(word[size] != '\0'){
+                size++;
+            }
+            inicio(word, size);
+        }
+    }
+    
+  return 0;
 }
+
+void inicio (char word[TAM], size_t size){
+    size_t cont = 0;
+    q0 (cont, word, size);
+}
+
+void q0(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q1( cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q2(cont, word, size);
+        }else if((word[cont] == 'E') || (cont == size)){
+            qFim();
+        }else{
+            qErro();
+        }
+    }
+}
+
+void q1(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q0(cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q1(cont, word, size);
+        }else{
+            qErro();
+        }
+    }
+}
+
+void q2(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q5(cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q4(cont, word, size);
+        }else{
+            qErro();
+        }
+    }
+}
+
+void q3(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q4(cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q5(cont, word, size);
+        }else{
+            qErro();
+        }
+    }
+}
+
+void q4(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q2(cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q3(cont, word, size);
+        }else if(cont == size){
+            qFim();
+        }else{
+            qErro();
+        }
+    }
+}
+
+void q5(size_t cont, char word[TAM], size_t size){
+    if(cont < TAM){
+        if (word[cont] == 'b'){
+            cont ++;
+            q3(cont, word, size);
+        }else if(word[cont] == 'a'){
+            cont ++;
+            q2(cont, word, size);
+        }else if(cont == size){
+            qFim();
+        }else{
+            qErro();
+        }
+    }
+}
+
+void qErro(){
+    printf("Palavra rejeitada pelo autmato programado\n");
+}
+void qFim(){
+    printf("Palavra aceita pelo automato programado\n");
+}
+
