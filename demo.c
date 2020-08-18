@@ -30,16 +30,13 @@ int main (){
             }
             inicio(word, size);
         }
-    }
-    
+    }   
   return 0;
 }
-
 void inicio (char word[TAM], size_t size){
     size_t cont = 0;
     q0 (cont, word, size);
 }
-
 void q0(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -55,7 +52,6 @@ void q0(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void q1(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -69,7 +65,6 @@ void q1(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void q2(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -83,7 +78,6 @@ void q2(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void q3(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -97,7 +91,6 @@ void q3(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void q4(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -113,7 +106,6 @@ void q4(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void q5(size_t cont, char word[TAM], size_t size){
     if(cont < TAM){
         if (word[cont] == 'b'){
@@ -129,7 +121,6 @@ void q5(size_t cont, char word[TAM], size_t size){
         }
     }
 }
-
 void qErro(){
     printf("Palavra rejeitada pelo autmato programado\n");
 }
