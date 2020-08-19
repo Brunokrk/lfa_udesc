@@ -38,3 +38,27 @@ def print_actual_mintab(table, all_states):
             print(table[i][j], end='')
         print()
     print("---------------------------------")
+
+
+def marcar_finais (table, all_states, final_states):
+    n_states = len(all_states)
+    n=0
+    m=0
+    for i in range(0, n_states):
+        if table[i][0] in final_states:
+            #achou um elemento final na coluna de elementos
+            #marcar todos os elementos da linha i
+            for  n in range (1, i+2):
+                table [i][n] = "#"
+
+    for j in range(1, n_states - 1):
+        if table[n_states -1][j] in final_states:
+            #achou um elemento final na linha de elementos
+            #marcar todos os elementos da coluna j
+            for n in range (j-1, n_states - 1):
+                if (table[n][j] == "#"):
+                    table[n][j] = "*"
+                else:
+                    table [n][j] = "#"
+
+
