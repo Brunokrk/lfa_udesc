@@ -1,5 +1,5 @@
 import inputs as infnc
-
+import transition as transfnc
 
 def init_min_table(all_states):
     """Cria a tabela de minimização onde serão marcados os estados distinguíveis"""
@@ -61,4 +61,38 @@ def marcar_finais (table, all_states, final_states):
                 else:
                     table [n][j] = "#"
 
+def minimizer (matriz, table, all_states, alfabeto):
+    """Função que faz a minimização do automato"""
+    n_states = len(all_states)
+    for i in range((len(all_states))):
+        for j in range((len(all_states))):
+            if table[i][j] == "*" :
+                #achou uma posição não marcada
+                state_A = table[i][0] #estado na coluna
+                state_B = table[n_states - 1][j] #estado na linha
+                #checar interações com cada entrada
+                vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
+                vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
+                print("vet_state_A de +"+str(state_A)+": " + str(vet_state_A))
+                print("vet_state_B de +"+str(state_B)+": " + str(vet_state_B))
+
+def get_vet_state_A (matriz, all_states, alfabeto, state_A):
+    """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
+    vet_state_A = []
+    for k in range (1, len(all_states)+1):
+        if matriz[k][0] == state_A:
+            vet_state_A = matriz[k]
+    return vet_state_A
+
+def get_vet_state_B (matriz, all_states, alfabeto, state_B):
+    """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
+    vet_state_B = []
+    for k in range (1, len(all_states)+1):
+        if matriz[k][0] == state_B:
+                vet_state_B = matriz [k]
+    return vet_state_B
+
+
+        
+    
 
