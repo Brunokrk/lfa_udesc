@@ -19,7 +19,7 @@ def init_min_table(all_states):
             elif(i == (n_states - 1) and j != 0):
                 line.append(all_states[a])
                 a = a + 1
-            elif(i >= at and j >= bt):
+            elif((j>=i+2) or (i==n_states - 1 and j ==0)):
                 # posições que não serão utilizadas na matriz
                 line.append('-')
                 at = at + 1
@@ -73,8 +73,8 @@ def minimizer (matriz, table, all_states, alfabeto):
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
-                print("vet_state_A de +"+str(state_A)+": " + str(vet_state_A))
-                print("vet_state_B de +"+str(state_B)+": " + str(vet_state_B))
+                print("vet_state_A de "+str(state_A)+": " + str(vet_state_A))
+                print("vet_state_B de "+str(state_B)+": " + str(vet_state_B))
 
 def get_vet_state_A (matriz, all_states, alfabeto, state_A):
     """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
@@ -92,7 +92,4 @@ def get_vet_state_B (matriz, all_states, alfabeto, state_B):
                 vet_state_B = matriz [k]
     return vet_state_B
 
-
-        
-    
 
