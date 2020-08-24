@@ -16,7 +16,7 @@ def init_matriz(all_states, alfabeto):
                 linha.append(alfabeto[jt])
                 jt = jt+1
             else:
-                linha.append('*')
+                linha.append('-')
         matriz.append(linha)
 
     return matriz
@@ -26,7 +26,7 @@ def print_actual_prfn(matriz, all_states, alfabeto):
     print("---FUNÇÃO PROGRAMA ATUAL---")
     for i in range((len(all_states) +1)):
         for j in range((len(alfabeto) +1)):
-            print(matriz[i][j], end='')
+            print("["+str(matriz[i][j])+"]", end='')
         print()
     print("---------------------------")
 
