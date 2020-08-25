@@ -23,12 +23,12 @@ def init_matriz(all_states, alfabeto):
 
 def print_actual_prfn(matriz, all_states, alfabeto):
     """Printa a matriz de transição do automato"""
-    print("---FUNÇÃO PROGRAMA ATUAL---")
+    print("------FUNÇÃO PROGRAMA ATUAL------")
     for i in range((len(all_states) +1)):
         for j in range((len(alfabeto) +1)):
             print("["+str(matriz[i][j])+"]", end='')
         print()
-    print("---------------------------")
+    print("---------------------------------")
 
 def program_function(matriz, all_states, alfabeto):
     """Completa a matriz de transição do automato"""

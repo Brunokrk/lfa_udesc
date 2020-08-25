@@ -49,17 +49,18 @@ def marcar_finais (table, all_states, final_states):
             #achou um elemento final na coluna de elementos
             #marcar todos os elementos da linha i
             for  n in range (1, i+2):
-                table [i][n] = "#"
+                table [i][n] = "X"
 
-    for j in range(1, n_states - 1):
+    for j in range(1, n_states):
         if table[n_states -1][j] in final_states:
             #achou um elemento final na linha de elementos
             #marcar todos os elementos da coluna j
             for n in range (j-1, n_states - 1):
-                if (table[n][j] == "#"):
+                if (table[n][j] == "X"):
                     table[n][j] = "*"
                 else:
-                    table [n][j] = "#"
+                    table [n][j] = "X"
+
 
 def minimizer (matriz, table, all_states, alfabeto):
     """Função que faz a minimização do automato"""
@@ -70,11 +71,15 @@ def minimizer (matriz, table, all_states, alfabeto):
                 #achou uma posição não marcada
                 state_A = table[i][0] #estado na coluna
                 state_B = table[n_states - 1][j] #estado na linha
+                print("---------------------------------")
+                print("Analisando par("+str(state_A)+","+str(state_B)+"):")
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
                 check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto)
+                print("---------------------------------")
                #...
+
 
 def check_rules (table,all_states, vet_state_A, vet_state_B, alfabeto):
     cont = 0
@@ -83,15 +88,29 @@ def check_rules (table,all_states, vet_state_A, vet_state_B, alfabeto):
             #Não marcar, são equivalentes
             print("pu = pv, para entrada ("+str(alfabeto[cont])+"), portanto são equivalentes e não serão marcados")
             print("P("+str(vet_state_A[0])+","+str(alfabeto[cont])+")-> "+ str(vet_state_A[k]))
-            print("P("+str(vet_state_B[0])+","+str(alfabeto[cont])+")-> "+ str(vet_state_B[k]))
+            print("P("+str(vet_state_B[0])+","+str(alfabeto[cont])+")-> "+ str(vet_state_B[k])+"\n\n")
             cont = cont + 1
         elif vet_state_A[k] != vet_state_B[k]:
             #verificar se {pu,pv} estão marcados
             state_A = vet_state_A[k]
             state_B = vet_state_B[k]
+            print("pu != pv para entrada ("+ str(alfabeto[cont])+ "):")
+            print("P("+str(vet_state_A[0])+"," + str(alfabeto[cont])+")->"+str(state_A))
+            print("P("+str(vet_state_B[0])+"," + str(alfabeto[cont])+")->"+str(state_B))
+            print("Devemos verificar se ("+str(state_A)+","+str(state_B)+") está marcado:")
             flag = check_mark(table, all_states, state_A, state_B)
             #Flag = true, marcado;
             #Flag = False, não marcado
+            if (flag == True):
+                #marcar a (qu,qv) na tabela
+                #verificar se (Qu, Qv) encabeçam uma lista, bem como cada elemento da lista
+                #próximas interações não precisam ser analisadas
+                break
+            else:
+                #adicionar (Qu, Qv) em uma lista, encabeçada por (pu, pv)
+                print("")
+            cont = cont + 1
+
 
 def check_mark(table, all_states, state_A, state_B):
     #state_A = pu, state_B = pv
@@ -99,33 +118,33 @@ def check_mark(table, all_states, state_A, state_B):
     if((state_A == all_states[0] and state_B == all_states[n_states-1]) or (state_B == all_states[0] and state_A == all_states[n_states-1])):
         #se state_A for o primeiro estado inserido e
         #se state_B for o último estado inserido
-        if(table[n_states-1][1] == "#"):
+        if(table[n_states-1][1] == "X"):
             #está marcado
-            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n\n")
             return True
         else:
             #não está marcado
-            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n\n")
             return False
     elif((state_A == all_states[0]) or (state_B == all_states[0])):
         #se state_A ou state_B for o primeiro estado
         for l in  range(0, n_states-1):
-            if(table[l][0] == (state_B or state_A)):
-                if(table[l][1]=="#"):
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
+            if((table[l][0] == state_B) or (table[l][0] == state_A)):
+                if(table[l][1]=="X"):
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n\n")
                     return True
                 else:
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n\n")
                     return False
     elif((state_A == all_states[n_states-1]) or (state_B == all_states[n_states-1])):
         #se state_A ou state_B for o ultimo estado
         for l in range(1, n_states):
-            if(table[n_states - 1][l] == (state_A or state_B)):
-                if(table[n_states-2][l] == "#"):
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
+            if((table[n_states - 1][l] == state_A) or (table[n_states - 1][l] == state_B)):
+                if(table[n_states-2][l] == "X"):
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n\n")
                     return True
                 else:
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n\n")
                     return False
     else:
         #Não são nem o primeiro nem o último
@@ -137,15 +156,13 @@ def check_mark(table, all_states, state_A, state_B):
             if(table[n_states - 1][k] == state_B):
                 coord_j = k
         
-        if(table[coord_i][coord_j] == "#"):
-            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
+        if(table[coord_i][coord_j] == "X"):
+            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n\n")
             return True
         else:
-            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n\n")
             return False
-
-
-                                
+                             
 #Rules:
 #P(Qu, a) = pu e P(Qv,a) = pv
 #pu == pv (Qu equivalente a Qv, não marcar)
@@ -163,6 +180,7 @@ def get_vet_state_A (matriz, all_states, alfabeto, state_A):
         if matriz[k][0] == state_A:
             vet_state_A = matriz[k]
     return vet_state_A
+
 
 def get_vet_state_B (matriz, all_states, alfabeto, state_B):
     """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
