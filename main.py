@@ -17,3 +17,5 @@ minfnc.marcar_finais(table, all_states, final_states)
 minfnc.print_actual_mintab(table, all_states) 
 
 minfnc.minimizer(matriz, table, all_states, alfabeto)
+
+minfnc.print_actual_mintab(table, all_states)

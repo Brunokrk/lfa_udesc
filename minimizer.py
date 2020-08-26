@@ -110,8 +110,9 @@ def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictiona
             if (flag == True):
                 #marcar a (qu,qv) na tabela
                 mark_table(table, coord_i, coord_j)
-
-                #verificar se (Qu, Qv) encabeçam uma lista, bem como se cada elemento da lista encabeça outra lista
+                if dictfnc.check(dictionary, table, table[coord_i][0], table[len(table)-1][coord_j]):
+                    #verificar se (qu, qv) encabeçam uma lista, bem como se cada elemento da lista encabeça outra lista
+                    dictfnc.tops_a_list(dictionary, table, table[coord_i][0], table[len(table)-1][coord_j])
                 #próximas interações não precisam ser analisadas
                 break
             else:
