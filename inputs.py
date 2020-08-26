@@ -13,3 +13,8 @@ def estados_finais():
 def estados_iniciais():
      init_state = input("Informe o estado inicial do AFD: ")
      return init_state
+
+def estados_equivalentes(a, b):
+    msg = "Informe a Letra que substituirá os estados equivalentes " + a +" e "+ b +":"
+    new_state = input(msg)
+    return new_state

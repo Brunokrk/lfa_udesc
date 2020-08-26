@@ -30,7 +30,6 @@ def init_min_table(all_states):
         table.append(line)
     return table
 
-
 def print_actual_mintab(table, all_states):
     '''Printa a tabela de minimização do automato'''
     print("---TABELA DE MINIMIZAÇÃO ATUAL---")
@@ -39,7 +38,6 @@ def print_actual_mintab(table, all_states):
             print("["+str(table[i][j])+"]", end='')
         print()
     print("---------------------------------")
-
 
 def marcar_finais (table, all_states, final_states):
     n_states = len(all_states)
@@ -62,7 +60,6 @@ def marcar_finais (table, all_states, final_states):
                 else:
                     table [n][j] = "X"
 
-
 def minimizer (matriz, table, all_states, alfabeto):
     """Função que faz a minimização do automato"""
     dictionary = {}
@@ -81,7 +78,6 @@ def minimizer (matriz, table, all_states, alfabeto):
                 check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, i, j)
                 print("---------------------------------")
                #...
-
 
 def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, coord_i, coord_j):
     cont = 0
@@ -125,7 +121,6 @@ def mark_table(table, i, j):
     """Marca a Tabela nos pares (qu, qv)"""
     table[i][j] = "X"
     
-
 def check_mark(table, all_states, state_A, state_B):
     #state_A = pu, state_B = pv
     n_states = len(all_states)
@@ -185,7 +180,6 @@ def get_vet_state_A (matriz, all_states, alfabeto, state_A):
             vet_state_A = matriz[k]
     return vet_state_A
 
-
 def get_vet_state_B (matriz, all_states, alfabeto, state_B):
     """Função que retorna o vetor de estados alcançados a partir das possíveis entradas"""
     vet_state_B = []
@@ -193,3 +187,17 @@ def get_vet_state_B (matriz, all_states, alfabeto, state_B):
         if matriz[k][0] == state_B:
                 vet_state_B = matriz [k]
     return vet_state_B
+
+def identifies_equivalent_states (table, all_states, alfabeto):
+    dicio = {}
+    for i in range((len(all_states))):
+        for j in range((len(all_states))):
+            if(table[i][j] == "*"):
+                #achou estados equivalentes
+                a = str(table[i][0])
+                b = str(table[-1][j])
+                new_state = infnc.estados_equivalentes(a, b)
+                dicio[new_state] = []
+                dicio[new_state].append(a)
+                dicio[new_state].append(b)
+    return dicio

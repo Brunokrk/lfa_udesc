@@ -1,9 +1,6 @@
 import inputs as infnc
 import transition as transfnc
 import minimizer as minfnc
-# Rules:
-# Função que verifica se um par (Qu, Qv) encabeçam uma lista
-
 
 def add_list(dictionary, pu, pv, qu, qv):
     """Função que cria ou adiciona listas para posterior verificação"""
@@ -39,8 +36,6 @@ def check (dictionary,table, qu, qv):
         return True
     else:
         return False
-
-
 
 def get_coord_i_column(table, a):
     for i in table:
