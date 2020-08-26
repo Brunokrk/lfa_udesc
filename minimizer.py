@@ -1,5 +1,6 @@
 import inputs as infnc
 import transition as transfnc
+import dictionaries as dictfnc
 
 def init_min_table(all_states):
     """Cria a tabela de minimização onde serão marcados os estados distinguíveis"""
@@ -64,6 +65,7 @@ def marcar_finais (table, all_states, final_states):
 
 def minimizer (matriz, table, all_states, alfabeto):
     """Função que faz a minimização do automato"""
+    dictionary = {}
     n_states = len(all_states)
     for i in range((len(all_states))):
         for j in range((len(all_states))):
@@ -76,12 +78,12 @@ def minimizer (matriz, table, all_states, alfabeto):
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
-                check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto)
+                check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary)
                 print("---------------------------------")
                #...
 
 
-def check_rules (table,all_states, vet_state_A, vet_state_B, alfabeto):
+def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary):
     cont = 0
     for k in range(1, len(alfabeto)+1):
         if vet_state_A[k] == vet_state_B [k]:
@@ -92,6 +94,10 @@ def check_rules (table,all_states, vet_state_A, vet_state_B, alfabeto):
             cont = cont + 1
         elif vet_state_A[k] != vet_state_B[k]:
             #verificar se {pu,pv} estão marcados
+            #state_A = pu
+            #state_B = pv
+            #vet_state_A[0] = qu
+            #vet_state_B[0] = qv
             state_A = vet_state_A[k]
             state_B = vet_state_B[k]
             print("pu != pv para entrada ("+ str(alfabeto[cont])+ "):")
@@ -108,7 +114,8 @@ def check_rules (table,all_states, vet_state_A, vet_state_B, alfabeto):
                 break
             else:
                 #adicionar (Qu, Qv) em uma lista, encabeçada por (pu, pv)
-                print("")
+                dictfnc.add_list(dictionary, state_A, state_B, vet_state_A[0], vet_state_B[0])
+            
             cont = cont + 1
 
 
