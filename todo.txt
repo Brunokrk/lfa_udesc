@@ -1,0 +1,5 @@
+->Função que verifica se um par (pu,pv) encabeça uma lista, bem como os elementos da lista (Recursividade)
+
+->Função que escreve a nova tabela de transições do autômato minimizado
+
+->Artigo, padrão SBC

@@ -78,12 +78,12 @@ def minimizer (matriz, table, all_states, alfabeto):
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
-                check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary)
+                check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, i, j)
                 print("---------------------------------")
                #...
 
 
-def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary):
+def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, coord_i, coord_j):
     cont = 0
     for k in range(1, len(alfabeto)+1):
         if vet_state_A[k] == vet_state_B [k]:
@@ -109,7 +109,9 @@ def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictiona
             #Flag = False, não marcado
             if (flag == True):
                 #marcar a (qu,qv) na tabela
-                #verificar se (Qu, Qv) encabeçam uma lista, bem como cada elemento da lista
+                mark_table(table, coord_i, coord_j)
+
+                #verificar se (Qu, Qv) encabeçam uma lista, bem como se cada elemento da lista encabeça outra lista
                 #próximas interações não precisam ser analisadas
                 break
             else:
@@ -118,6 +120,10 @@ def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictiona
             
             cont = cont + 1
 
+def mark_table(table, i, j):
+    """Marca a Tabela nos pares (qu, qv)"""
+    table[i][j] = "X"
+    
 
 def check_mark(table, all_states, state_A, state_B):
     #state_A = pu, state_B = pv
@@ -170,18 +176,8 @@ def check_mark(table, all_states, state_A, state_B):
             print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n\n")
             return False
                              
-#Rules:
-#P(Qu, a) = pu e P(Qv,a) = pv
-#pu == pv (Qu equivalente a Qv, não marcar)
-
-#pu != pv, e par {pu,pv} não está marcado (Qu, Qv) é incluído numa lista a partir de pu,pv
-
-#pu != pv, e par {pu,pv} está marcado, (Qu, Qv) são não equivalentes, portanto marcar.
-#se(Qu, Qv) encabeçam uma lista, marcar todos os pares da lista, e se algum par encabeça outra lista tbm
-#
-
 def get_vet_state_A (matriz, all_states, alfabeto, state_A):
-    """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
+    """Função que retorna o vetor de estados alcançados a partir das possíveis entradas"""
     vet_state_A = []
     for k in range (1, len(all_states)+1):
         if matriz[k][0] == state_A:
@@ -190,7 +186,7 @@ def get_vet_state_A (matriz, all_states, alfabeto, state_A):
 
 
 def get_vet_state_B (matriz, all_states, alfabeto, state_B):
-    """Função que retorna o vetor de estados alcançados a partir do estado de entrada"""
+    """Função que retorna o vetor de estados alcançados a partir das possíveis entradas"""
     vet_state_B = []
     for k in range (1, len(all_states)+1):
         if matriz[k][0] == state_B:
