@@ -29,7 +29,6 @@ def tops_a_list (dictionary, table, qu, qv):
         if check(dictionary, table, value[0], value[1]):
             tops_a_list(dictionary, table,value[0], value[1])
 
-
 def check (dictionary,table, qu, qv):
     """Verifica se o elemento que entrou encabeça ou não uma lista"""
     if (qu+qv) in dictionary.keys():
