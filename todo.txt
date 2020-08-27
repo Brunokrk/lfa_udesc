@@ -1,9 +1,0 @@
-->Função que verifica se um par (pu,pv) encabeça uma lista, bem como os elementos da lista (Recursividade)
-
-->Função que escreve a nova tabela de transições do autômato minimizado
-
-->Artigo, padrão SBC
-
-(F,B) está marcado, portanto devemos marcar (D,B) e 
-verificar se (D,B) encabeça uma lista.
-Ainda não existem listas

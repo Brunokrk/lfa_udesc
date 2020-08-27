@@ -31,7 +31,7 @@ def init_min_table(all_states):
     return table
 
 def print_actual_mintab(table, all_states):
-    '''Printa a tabela de minimização do automato'''
+    """Printa a tabela de minimização do automato"""
     print("---TABELA DE MINIMIZAÇÃO ATUAL---")
     for i in range((len(all_states))):
         for j in range((len(all_states))):
@@ -40,6 +40,7 @@ def print_actual_mintab(table, all_states):
     print("---------------------------------")
 
 def marcar_finais (table, all_states, final_states):
+    """Função dedicada á diferenciação dos estados finais dos não finais"""
     n_states = len(all_states)
     n=0
     m=0
@@ -49,7 +50,6 @@ def marcar_finais (table, all_states, final_states):
             #marcar todos os elementos da linha i
             for  n in range (1, i+2):
                 table [i][n] = "X"
-
     for j in range(1, n_states):
         if table[n_states -1][j] in final_states:
             #achou um elemento final na linha de elementos
@@ -71,7 +71,7 @@ def minimizer (matriz, table, all_states, alfabeto):
                 state_A = table[i][0] #estado na coluna
                 state_B = table[n_states - 1][j] #estado na linha
                 print("---------------------------------")
-                print("Analisando par("+str(state_A)+","+str(state_B)+"):")
+                print("Analisando o par ("+str(state_A)+","+str(state_B)+"):")
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
@@ -80,11 +80,12 @@ def minimizer (matriz, table, all_states, alfabeto):
                #...
 
 def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, coord_i, coord_j):
+    """Função que verifica as regras de minimização"""
     cont = 0
     for k in range(1, len(alfabeto)+1):
         if vet_state_A[k] == vet_state_B [k]:
             #Não marcar, são equivalentes
-            print("\n\npu = pv, para entrada ("+str(alfabeto[cont])+"), portanto são equivalentes e nada será feito")
+            print("\npu = pv, para entrada ("+str(alfabeto[cont])+"), portanto são equivalentes e nada será feito")
             print("P("+str(vet_state_A[0])+","+str(alfabeto[cont])+")-> "+ str(vet_state_A[k]))
             print("P("+str(vet_state_B[0])+","+str(alfabeto[cont])+")-> "+ str(vet_state_B[k])+"\n\n")
             cont = cont + 1
@@ -96,7 +97,7 @@ def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictiona
             #vet_state_B[0] = qv
             state_A = vet_state_A[k]
             state_B = vet_state_B[k]
-            print("\n\npu != pv para entrada ("+ str(alfabeto[cont])+ "):")
+            print("\npu != pv para entrada ("+ str(alfabeto[cont])+ "):")
             print("P("+str(vet_state_A[0])+"," + str(alfabeto[cont])+")->"+str(state_A))
             print("P("+str(vet_state_B[0])+"," + str(alfabeto[cont])+")->"+str(state_B))
             print("Devemos verificar se ("+str(state_A)+","+str(state_B)+") está marcado:")
@@ -124,6 +125,7 @@ def mark_table(table, i, j):
     table[i][j] = "X"
     
 def check_mark(table, all_states, state_A, state_B):
+    """Verifica se a posição está marcada"""
     #state_A = pu, state_B = pv
     n_states = len(all_states)
     if((state_A == all_states[0] and state_B == all_states[n_states-1]) or (state_B == all_states[0] and state_A == all_states[n_states-1])):
@@ -191,6 +193,7 @@ def get_vet_state_B (matriz, all_states, alfabeto, state_B):
     return vet_state_B
 
 def identifies_equivalent_states (table, all_states, alfabeto):
+    """Função que identifica os estados equivalentes"""
     dicio = {}
     for i in range((len(all_states))):
         for j in range((len(all_states))):
