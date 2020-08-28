@@ -206,3 +206,4 @@ def identifies_equivalent_states (table, all_states, alfabeto):
                 dicio[new_state].append(a)
                 dicio[new_state].append(b)
     return dicio
+

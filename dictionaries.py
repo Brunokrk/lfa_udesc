@@ -38,13 +38,13 @@ def check (dictionary,table, qu, qv):
 
 def get_coord_i_column(table, a):
     """Retorna endereço i na tabela"""
-    for i in table:
+    for i in range(0, len(table)-1):
         if table[i][0] == a:
             return i
         
 def get_coord_j_line(table, a):
     """Retorna endereço j na tabela"""
-    for j in table[-1]:
+    for j in range(1, len(table[-1])):
         if table[-1][j] == a:
             return j
     
