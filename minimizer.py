@@ -37,7 +37,7 @@ def print_actual_mintab(table, all_states):
         for j in range((len(all_states))):
             print("["+str(table[i][j])+"]", end='')
         print()
-    print("---------------------------------")
+   
 
 def marcar_finais (table, all_states, final_states):
     """Função dedicada á diferenciação dos estados finais dos não finais"""
@@ -70,13 +70,13 @@ def minimizer (matriz, table, all_states, alfabeto):
                 #achou uma posição não marcada
                 state_A = table[i][0] #estado na coluna
                 state_B = table[n_states - 1][j] #estado na linha
-                print("---------------------------------")
+                print("____________________________________________")
                 print("Analisando o par ("+str(state_A)+","+str(state_B)+"):")
                 #checar interações com cada entrada
                 vet_state_A = get_vet_state_A ( matriz, all_states, alfabeto, state_A)
                 vet_state_B = get_vet_state_B(matriz, all_states, alfabeto, state_B)
                 check_rules(table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, i, j)
-                print("---------------------------------")
+
                #...
 
 def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictionary, coord_i, coord_j):
@@ -106,7 +106,7 @@ def check_rules (table, all_states, vet_state_A, vet_state_B, alfabeto, dictiona
             #Flag = False, não marcado
             if (flag == True):
                 #marcar a (qu,qv) na tabela
-                print("Portanto, marcar ("+ str(vet_state_A[0])+","+str(vet_state_B[0])+"), e verificar se encabeçam uma lista")
+                print("Portanto, marcar ("+ str(vet_state_A[0])+","+str(vet_state_B[0])+"), e verificar se encabeçam uma lista, bem como cada item da lista")
                 mark_table(table, coord_i, coord_j)
                 print_actual_mintab(table, all_states)
                 if dictfnc.check(dictionary, table, table[coord_i][0], table[len(table)-1][coord_j]):
@@ -133,7 +133,7 @@ def check_mark(table, all_states, state_A, state_B):
         #se state_B for o último estado inserido
         if(table[n_states-1][1] == "X"):
             #está marcado
-            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
             return True
         else:
             #não está marcado
@@ -144,7 +144,7 @@ def check_mark(table, all_states, state_A, state_B):
         for l in  range(0, n_states-1):
             if((table[l][0] == state_B) or (table[l][0] == state_A)):
                 if(table[l][1]=="X"):
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n")
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
                     return True
                 else:
                     print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
@@ -154,7 +154,7 @@ def check_mark(table, all_states, state_A, state_B):
         for l in range(1, n_states):
             if((table[n_states - 1][l] == state_A) or (table[n_states - 1][l] == state_B)):
                 if(table[n_states-2][l] == "X"):
-                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n")
+                    print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
                     return True
                 else:
                     print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
@@ -170,10 +170,10 @@ def check_mark(table, all_states, state_A, state_B):
                 coord_j = k
         
         if(table[coord_i][coord_j] == "X"):
-            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado\n")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), está marcado")
             return True
         else:
-            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado\n")
+            print("O par ("+str(state_A)+", "+str(state_B)+"), não está marcado")
             return False
                              
 def get_vet_state_A (matriz, all_states, alfabeto, state_A):

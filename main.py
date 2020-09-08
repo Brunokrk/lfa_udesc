@@ -17,7 +17,7 @@ transfnc.print_actual_prfn(matriz, all_states, alfabeto)
 # Gera tabela de minimização
 table = minfnc.init_min_table(all_states)
 minfnc.marcar_finais(table, all_states, final_states)
-print("Após diferenciar os estados finais dos não finais:")
+print("Após marcar os estados do tipo (final, não final):")
 minfnc.print_actual_mintab(table, all_states)
 
 # Executa a Minimização
