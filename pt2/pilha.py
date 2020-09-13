@@ -23,7 +23,6 @@ class Pilha():
     def push(self, character):
         """Empilha um elemento"""
         new_node = Node(character)
-
         new_node.next = self.top
         self.top = new_node
         self.size = self.size + 1

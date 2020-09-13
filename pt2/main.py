@@ -1,15 +1,14 @@
 from pilha import Pilha
+import automato as atm
 
-""" pilha = Pilha()
-
-pilha.push("1")
-pilha.push("2")
-pilha.push("3")
-
-
-print(pilha)
-print(len(pilha))
-
-
-elemento = pilha.pop()
-print(elemento.character) """
+flag = "exit"
+k = 0
+while(1):
+    fita = input("Informe a fita:   ")
+    if (fita == flag):
+        print("Finalizando...")
+        break
+    else:
+        size = len(fita) - 1  # começando em 0
+        pilha = Pilha()
+        atm.start(fita, size, pilha)
