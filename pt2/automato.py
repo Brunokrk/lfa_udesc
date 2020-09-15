@@ -1,117 +1,62 @@
-def start(fita, size, pilha):
-    cont = 0
-    initial_state(cont, fita, size, pilha)
+from common_state import Common_State
 
-def initial_state(cont, fita, size, pilha):
-    """Estado in inicial"""
-    if (fita[cont] == '1'):
-        cont = cont + 1
-        pilha.push("0")
-        state_d(cont, fita, size, pilha)
-    elif(fita[cont] == '0'):
-        cont = cont +1
-        pilha.push("1")
-        state_b(cont, fita, size, pilha)
+def get_alphabet():
+    """get alphabet"""
+    alfabeto = input("Informe o alfabeto da pilha: ")
+    return alfabeto.lower()
 
+def get_all_states():
+    """get all states"""
+    all_states = input("Informe todos os estados do alfabeto: ")
+    return all_states.upper()
 
-def state_d(cont, fita, size, pilha):
-    """Estado D"""
-    if (fita[cont] == "1"):
-        cont = cont +1
-        pilha.push("0")
-        state_d(cont, fita, size, pilha)
-    elif(fita[cont] == "0"):
-        cont = cont + 1
-        pilha.pop()
-        state_e(cont, fita, size, pilha)
+def get_init_state():
+    """gets init state"""
+    init_state = input("Informe o estado inicial: ")
+    return init_state.upper()
 
-def state_e (cont, fita, size, pilha):
-    """Estado E"""
-    if(cont > len(fita)-1 and len(pilha)==0):
-        final_state()
-        return
-    if(cont > len(fita)-1 and len(pilha)!=0):
-        print("FITA:::INVÁLIDA")
-        return
-    if(fita[cont] == "0" and pilha.peek()=="0"):
-        #(0,0,e)
+def get_final_state():
+    """gets final state"""
+    final_state = input("Informe o estado fnal: ")
+    return final_state.upper()
 
-        cont = cont+1
-        pilha.pop()
-        state_e(cont, fita, size, pilha)
-    elif(fita[cont] == "0" and len(pilha) == 0):
-        #(0,?,1)
-        cont = cont +1
-        pilha.push("1")
-        state_e(cont, fita, size, pilha)
-    elif(fita[cont] == "0" and pilha.peek()=="1"):
-        #(0, 1,11)
-        cont = cont+1
-        pilha.push("1")
-        state_e(cont, fita, size, pilha)
-    elif(fita[cont] == "1" and pilha.peek()=="1"):
-        #(1, 1,e)
-        cont = cont+1
-        pilha.pop()
-        state_e(cont, fita, size, pilha)
-    elif(fita[cont] == "1" and len(pilha)==0):
-        #(1, ?,0)
-        cont = cont+1
-        pilha.push("0")
-        state_e(cont, fita, size, pilha)
-    elif(fita[cont] == "1" and pilha.peek()=="0"):
-        #(0, 1,11)
-        cont = cont+1
-        pilha.push("0")
-        state_e(cont, fita, size, pilha)
-def state_b(cont, fita, size, pilha):
-    if (fita[cont] == "0"):
-        cont = cont +1
-        pilha.push("1")
-        state_b(cont, fita, size, pilha)
-    elif(fita[cont] == "1"):
-        cont = cont + 1
-        pilha.pop()
-        state_c(cont, fita, size, pilha)
+def get_stack_alphabet():
+    """gets alphabet"""
+    stack_alphabet = input("Informe o alfabeto da pilha: ")
+    return stack_alphabet.upper()
 
-def state_c (cont, fita, size, pilha):
-    """Estado E"""
-    if(cont > len(fita)-1 and len(pilha)==0):
-        final_state()
-        return
-    if(cont > len(fita)-1 and len(pilha)!=0):
-        print("FITA:::INVÁLIDA")
-        return
-    if(fita[cont] == "1" and pilha.peek()=="1"):
-        #(1,1,e)
-        cont = cont+1
-        pilha.pop()
-        state_c(cont, fita, size, pilha)
-    elif(fita[cont] == "1" and len(pilha) == 0):
-        #(1,?,0)
-        cont = cont +1
-        pilha.push("0")
-        state_c(cont, fita, size, pilha)
-    elif(fita[cont] == "1" and pilha.peek()=="0"):
-        #(1, 0,00)
-        cont = cont+1
-        pilha.push("0")
-        state_c(cont, fita, size, pilha)
-    elif(fita[cont] == "0" and pilha.peek()=="0"):
-        #(0, 0,e)
-        cont = cont+1
-        pilha.pop()
-        state_c(cont, fita, size, pilha)
-    elif(fita[cont] == "0" and len(pilha)==0):
-        #(0, ?,1)
-        cont = cont+1
-        pilha.push("1")
-        state_c(cont, fita, size, pilha)
-    elif(fita[cont] == "0" and pilha.peek()=="1"):
-        #(0, 1,11)
-        cont = cont+1
-        pilha.push("1")
-        state_c(cont, fita, size, pilha)
+def check_intention(entrada):
+    """Checa se usuário quer continuar"""
+    if(entrada == "exit"):
+        exit()
+        
+def get_transitions(all_states):
+    """Pega as transições do autômato"""
+    goes_to = {}
+    trans_vet=[]
+    for i in all_states:
+        trans_vet.append(i)
+    i=0
+    flag = "/prox"
 
-def final_state():
-    print("FITA:::VÁLIDA")
+    for state in all_states:
+        while(1):
+            chave = input("(/prox para proximas transições) A transição vai de "+ str(state)+" para: ")
+            if chave == "/prox":
+                break
+            valor = input("Transição: ")
+            goes_to[chave] = valor
+        
+        print(goes_to)
+        trans_vet[i] = goes_to
+        print(trans_vet)
+        deleting_dicio(goes_to)
+        i= i +1
+        print(trans_vet)
+
+    
+    return trans_vet
+
+def deleting_dicio(dicio):
+    dicio.clear()
+    return dicio

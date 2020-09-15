@@ -1,14 +1,16 @@
 from pilha import Pilha
 import automato as atm
 
-flag = "exit"
-k = 0
-while(1):
-    fita = input("Informe a fita:   ")
-    if (fita == flag):
-        print("Finalizando...")
-        break
-    else:
-        size = len(fita) - 1  # começando em 0
-        pilha = Pilha()
-        atm.start(fita, size, pilha)
+alphabet = atm.get_alphabet()
+atm.check_intention(alphabet)
+all_states = atm.get_all_states()
+atm.check_intention(all_states)
+init_state = atm.get_init_state()
+atm.check_intention(init_state)
+final_state = atm.get_final_state()
+atm.check_intention(final_state)
+stack_alphabet = atm.get_stack_alphabet()
+atm.check_intention(stack_alphabet)
+
+vet = atm.get_transitions(all_states)
+print(vet)

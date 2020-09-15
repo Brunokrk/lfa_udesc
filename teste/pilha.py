@@ -42,5 +42,3 @@ class Pilha():
             return None
         else:
             return str(self.top.character)
-    
-    
