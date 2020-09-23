@@ -51,3 +51,14 @@ def deleting_dicio(dicio):
     """Deleta um dicionario"""
     dicio.clear()
     return dicio
+
+def início(dicio, init_state, final_state, all_states, word):
+    """Verifica a palavra de entrada"""
+    for m in range(4):
+        if dicio[init_state][m][1] == word[0]:
+            #conhece a transição
+            transição(dicio, dicio[init_state][m])
+
+
+def transição(dicio, vetor_transição):
+

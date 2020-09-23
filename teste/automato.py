@@ -1,4 +1,5 @@
 def start(fita, size, pilha):
+    """inicio"""
     cont = 0
     initial_state(cont, fita, size, pilha)
 
@@ -12,7 +13,6 @@ def initial_state(cont, fita, size, pilha):
         cont = cont +1
         pilha.push("1")
         state_b(cont, fita, size, pilha)
-
 
 def state_d(cont, fita, size, pilha):
     """Estado D"""
@@ -65,6 +65,7 @@ def state_e (cont, fita, size, pilha):
         pilha.push("0")
         state_e(cont, fita, size, pilha)
 def state_b(cont, fita, size, pilha):
+    """Estado B"""
     if (fita[cont] == "0"):
         cont = cont +1
         pilha.push("1")
@@ -114,4 +115,8 @@ def state_c (cont, fita, size, pilha):
         state_c(cont, fita, size, pilha)
 
 def final_state():
+    """"Estado Final"""
     print("FITA:::VÁLIDA")
+
+    
+    
