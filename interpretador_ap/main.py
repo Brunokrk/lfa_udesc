@@ -1,6 +1,6 @@
 import automaton as atm
 import functions as fnc
-from stack import Stack
+from pilha.stack import Stack
 
 epsilon = "&"
 verifi = "?"
