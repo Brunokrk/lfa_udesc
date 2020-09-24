@@ -23,5 +23,3 @@ for state_item in data["all_states"]:
     state = atm.State(state_item.get("state"), transitions)
     all_states.append(state)
 
-
-fnc.confirmating(all_states, init_state, final_states, actual_state)

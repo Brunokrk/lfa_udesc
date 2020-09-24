@@ -11,5 +11,4 @@ class State():
         self.state = state
         self.transitions = transitions
 
-        
 
