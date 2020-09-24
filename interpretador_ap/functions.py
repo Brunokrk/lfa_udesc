@@ -5,9 +5,6 @@ def open_json():
         data = load(json_file)
     return data
 
-
-
-
 def calculate(all_states, init_state, final_states, actual_state,word, pilha):
     """Calcula as devidas transições"""
     epsilon = "&"
@@ -59,3 +56,11 @@ def calculate(all_states, init_state, final_states, actual_state,word, pilha):
                     return True
     return False
 
+
+def confirmating(all_states, init_state, final_states, actual_state):
+    """Confirmando autômato inserido"""
+    print("Autômato inserido:")
+    for state in all_states:
+        print("Estado("+str(state.state).upper()+")")
+        print("Transições:"+str(state.transitions) +".")
+        print("--------------------------------------")
