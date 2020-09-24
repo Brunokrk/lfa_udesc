@@ -1,5 +1,5 @@
 from node import Node
-class Pilha():
+class Stack():
     """Modelagem da Pilha"""
 
     def __init__(self):
@@ -10,13 +10,13 @@ class Pilha():
     def __len__(self):
         """Tamanho da Pilha"""
         return self.size
-    
+
     def __repr__(self):
         """Retorna uma representação da pilha"""
         t = ""
         ptr = self.top
         while(ptr):
-            t= t + str(ptr.character)+ "\n"
+            t = t + str(ptr.character) + "\n"
             ptr = ptr.next
         return t
 
@@ -29,7 +29,7 @@ class Pilha():
 
     def pop(self):
         """Desempilha um elemento"""
-        if self.size >0:
+        if self.size > 0:
             node = self.top
             self.top = self.top.next
             self.size = self.size - 1
@@ -42,5 +42,3 @@ class Pilha():
             return None
         else:
             return str(self.top.character)
-    
-    
