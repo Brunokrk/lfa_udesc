@@ -1,8 +1,7 @@
-from pathlib import Path
 from json import load
 
 def open_json():
-    with Path("./inputs.json").open("r") as json_file:
+    with open('./interpretador_ap/entrada.json','r') as json_file:
         data = load(json_file)
     return data
 

@@ -1,6 +1,6 @@
 import automaton as atm
 import functions as fnc
-from pilha.stack import Stack
+from stack import Stack
 
 epsilon = "&"
 verifi = "?"
@@ -24,4 +24,9 @@ for state_item in data["all_states"]:
     all_states.append(state)
 
 
-
+print(words_to_aprove)
+print(words_to_reject)
+print(init_state)
+print(final_states)
+print(actual_state)
+print(all_states[0].transitions)
