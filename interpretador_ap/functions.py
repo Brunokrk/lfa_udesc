@@ -22,8 +22,7 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
 
     estado_atual = [
         state for state in all_states if state.state == actual_state.state][0]
-    
-    #print(str(estado_atual.state))
+           
 
     if actual_letter == None:
         for transition in estado_atual.transitions:
@@ -42,7 +41,6 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
         return False
 
     for transition in estado_atual.transitions:
-        print("teste")
         if transition.letter == actual_letter:
             if epsilon == transition.unstack:
                 if transition.stack_up != epsilon:
@@ -50,7 +48,6 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
                 actual_state.state = transition.goes_to
                 return True
             elif (len(pilha.stack) > 0) and (pilha.stack[-1] == transition.unstack):
-                print("FOI AGORA ESSA PORRA?")
                 pilha.stack.pop()
                 if transition.stack_up != epsilon:
                     pilha.stack.extend([item for item in transition.stack_up])
@@ -60,8 +57,6 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
                 if transition.stack_up != epsilon:
                     pilha.stack.extend([item for item in transition.stack_up])
                     actual_state.state = transition.goes_to
-                    print("retorno 1")
-                    print("Empilhou "+str(pilha.stack[-1]))
                     return True
     return False
 
@@ -82,17 +77,37 @@ def confirmating(all_states, init_state, final_states, actual_state):
 
 def approving_words(all_states, final_states, actual_state, words_to_aprove, pilha):
     """Função dedicada á aprovação das palavras"""
+    initial_state = actual_state.state
     for word in words_to_aprove:
         obj_word = Word(word)
+        bck_word = word
         flag = True
         while flag:
-            print(obj_word.word)
             flag = calculate(all_states, final_states, actual_state, obj_word, pilha)
-            print(actual_state.state)
             #print(actual_state.state)
             #print(pilha)
             
-        if len(obj_word.word)==0 and len(pilha) == 0 and actual_state.state in final_states:
-            print("! APROVADA !")
+        if len(obj_word.word)==0 and len(pilha.stack) == 0 and actual_state.state in final_states:
+            print(bck_word +" => FOI APROVADA !")
+            actual_state.state = initial_state
         else:
-            print("ERROR::FITA INVÁLIDA")
+            print(bck_word + " => ERROR::FITA INVÁLIDA")
+            actual_state.state = initial_state
+
+def rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha):
+    """Função dedicada á reprovação das palavras"""
+    initial_state = actual_state.state
+
+    for word in words_to_reject:
+        obj = Word(word)
+        backup = word
+        flag = True
+        while flag:
+            flag =  calculate(all_states, final_states, actual_state, obj, pilha)
+        
+        if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
+            print(" => FOI REPROVADA!")
+            actual_state.state = initial_state
+        else:
+            print(" => ERROR::FITA INVÁLIDA")
+            actual_state.state = initial_state

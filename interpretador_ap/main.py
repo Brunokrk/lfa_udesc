@@ -24,4 +24,7 @@ for state_item in arq["all_states"]:
     state = atm.State(state_item.get("state"), transitions)
     all_states.append(state)
 
-fnc.approving_words(all_states, final_states, actual_state, words_to_aprove, pilha)
+#fnc.approving_words(all_states, final_states, actual_state, words_to_aprove, pilha)
+
+fnc.rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha)
+
