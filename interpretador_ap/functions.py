@@ -78,6 +78,7 @@ def confirmating(all_states, init_state, final_states, actual_state):
 def approving_words(all_states, final_states, actual_state, words_to_aprove, pilha):
     """Função dedicada á aprovação das palavras"""
     initial_state = actual_state.state
+    print("-------------FITAS Á APROVAR-------------")
     for word in words_to_aprove:
         obj_word = Word(word)
         bck_word = word
@@ -90,14 +91,16 @@ def approving_words(all_states, final_states, actual_state, words_to_aprove, pil
         if len(obj_word.word)==0 and len(pilha.stack) == 0 and actual_state.state in final_states:
             print(bck_word +" => FOI APROVADA !")
             actual_state.state = initial_state
+            pilha.stack.clear()
         else:
             print(bck_word + " => ERROR::FITA INVÁLIDA")
             actual_state.state = initial_state
+            pilha.stack.clear()
 
 def rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha):
     """Função dedicada á reprovação das palavras"""
     initial_state = actual_state.state
-
+    print("-------------FITAS Á REPROVAR-------------")
     for word in words_to_reject:
         obj = Word(word)
         backup = word
@@ -108,6 +111,9 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
         if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
             print(backup +" => FOI REPROVADA!")
             actual_state.state = initial_state
+            pilha.stack.clear()
         else:
             print(backup +" => ERROR::FITA INVÁLIDA")
             actual_state.state = initial_state
+            pilha.stack.clear()
+
