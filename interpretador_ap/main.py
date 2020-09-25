@@ -6,7 +6,7 @@ epsilon = "&"
 verifi = "?"
 
 arq = fnc.open_json()  # abre arquivo
-pilha = Stack()  # criando pilha do automato
+pilha = atm.Pilha()  # criando pilha do automato
 words_to_aprove = arq.get("aprovar")  # lote de palavras para aprovar
 words_to_reject = arq.get("rejeitar")  # lote de palavras para rejeitar
 init_state = arq.get("init_state")  # estado inicial

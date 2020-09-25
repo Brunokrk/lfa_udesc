@@ -23,21 +23,20 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
     estado_atual = [
         state for state in all_states if state.state == actual_state.state][0]
     
-    topo_pilha = pilha.peek()
     #print(str(estado_atual.state))
 
     if actual_letter == None:
         for transition in estado_atual.transitions:
             if transition.letter == verifi:
                 if transition.unstack == verifi:
-                    if len(pilha) == 0:
+                    if len(pilha.stack) == 0:
                         if transition.goes_to in final_states:
                             actual_state.state = transition.goes_to
                             return True
-                elif pilha.peek() == transition.unstack:
-                    pilha.pop()
+                elif pilha.stack[-1] == transition.unstack:
+                    pilha.stack.pop()
                     if transition.stack_up != epsilon:
-                        pilha.push([item for item in transition.stack_up])
+                        pilha.stack.extend([item for item in transition.stack_up])
                     actual_state.state = transition.goes_to
                     return True
         return False
@@ -45,25 +44,24 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
     for transition in estado_atual.transitions:
         print("teste")
         if transition.letter == actual_letter:
-            print("entrou 1 if")
-            print("Tamanho da pilha "+ str(len(pilha)))
-            print("Topo da pilha "+ str(pilha.peek()))
             if epsilon == transition.unstack:
                 if transition.stack_up != epsilon:
-                    pilha.push([item for item in transition.stack_up])
+                    pilha.stack.extend([item for item in transition.stack_up])
                 actual_state.state = transition.goes_to
                 return True
-            elif (pilha.size > 0) and (topo_pilha == transition.unstack):
-                pilha.pop()
+            elif (len(pilha.stack) > 0) and (pilha.stack[-1] == transition.unstack):
+                print("FOI AGORA ESSA PORRA?")
+                pilha.stack.pop()
                 if transition.stack_up != epsilon:
-                    pilha.push([item for item in transition.stack_up])
+                    pilha.stack.extend([item for item in transition.stack_up])
                 actual_state.state = transition.goes_to
                 return True
-            elif transition.unstack == verifi and len(pilha) == 0:
+            elif transition.unstack == verifi and len(pilha.stack) == 0:
                 if transition.stack_up != epsilon:
-                    pilha.push([item for item in transition.stack_up])
+                    pilha.stack.extend([item for item in transition.stack_up])
                     actual_state.state = transition.goes_to
                     print("retorno 1")
+                    print("Empilhou "+str(pilha.stack[-1]))
                     return True
     return False
 

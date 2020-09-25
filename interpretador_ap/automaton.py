@@ -16,3 +16,8 @@ class CurrentState():
     """Modelagem do estado atual do automato"""
     def __init__(self, state):
         self.state = state
+
+class Pilha():
+    """Pilha do automato"""
+    def __init__(self):
+        self.stack = []
