@@ -1,7 +1,6 @@
 from node import Node
 class Stack():
     """Modelagem da Pilha"""
-
     def __init__(self):
         """Construtor"""
         self.top = None

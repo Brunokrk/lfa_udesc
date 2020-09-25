@@ -7,21 +7,24 @@ def open_json():
     return data
 
 
-def calculate(all_states, init_state, final_states, actual_state, word, pilha):
+def calculate(all_states, final_states, actual_state, obj_word, pilha):
     """Calcula as devidas transições"""
     epsilon = "&"
     verifi = "?"
 
-    if len(word) >= 1:
-        # atualiza palavra de entrada e letra a ser processada
-        actual_letter = word[0]
-        word = word[1:]
-    else:
-        # palavra vazia
-        actual_letter = None
+    actual_letter = None
+    if len(obj_word.word)> 1:
+        actual_letter = obj_word.word[0]
+        obj_word.word = obj_word.word[1:]
+    elif len(obj_word) == 1:
+        actual_letter = obj_word.word[0]
+        obj_word.word = ""
 
     estado_atual = [
-        state for state in all_states if state.state == actual_state][0]
+        state for state in all_states if state.state == actual_state.state][0]
+    
+    topo_pilha = pilha.peek()
+    #print(str(estado_atual.state))
 
     if actual_letter == None:
         for transition in estado_atual.transitions:
@@ -29,33 +32,38 @@ def calculate(all_states, init_state, final_states, actual_state, word, pilha):
                 if transition.unstack == verifi:
                     if len(pilha) == 0:
                         if transition.goes_to in final_states:
-                            actual_state = transition.goes_to
+                            actual_state.state = transition.goes_to
                             return True
                 elif pilha.peek() == transition.unstack:
                     pilha.pop()
                     if transition.stack_up != epsilon:
-                        pilha.push([str(item) for item in transition.stack_up])
-                    actual_state = transition.goes_to
+                        pilha.push([item for item in transition.stack_up])
+                    actual_state.state = transition.goes_to
                     return True
         return False
 
     for transition in estado_atual.transitions:
+        print("teste")
         if transition.letter == actual_letter:
+            print("entrou 1 if")
+            print("Tamanho da pilha "+ str(len(pilha)))
+            print("Topo da pilha "+ str(pilha.peek()))
             if epsilon == transition.unstack:
                 if transition.stack_up != epsilon:
-                    pilha.push([str(item) for item in transition.stack_up])
-                actual_state = transition.goes_to
+                    pilha.push([item for item in transition.stack_up])
+                actual_state.state = transition.goes_to
                 return True
-            elif len(pilha) > 0 and pilha.peek() == transition.unstack:
+            elif (pilha.size > 0) and (topo_pilha == transition.unstack):
                 pilha.pop()
                 if transition.stack_up != epsilon:
-                    pilha.push([str(item) for item in transition.stack_up])
-                actual_state = transition.goes_to
+                    pilha.push([item for item in transition.stack_up])
+                actual_state.state = transition.goes_to
                 return True
             elif transition.unstack == verifi and len(pilha) == 0:
                 if transition.stack_up != epsilon:
-                    pilha.push([str(item) for item in transition.stack_up])
-                    actual_state = transition.goes_to
+                    pilha.push([item for item in transition.stack_up])
+                    actual_state.state = transition.goes_to
+                    print("retorno 1")
                     return True
     return False
 
@@ -74,13 +82,19 @@ def confirmating(all_states, init_state, final_states, actual_state):
             print("Transições:"+str(state.transitions) + ".")
             print("--------------------------------------")
 
-
-# OBS->Escolher mostrar evolução da pilha ou não
-
-def approving_words(all_states, init_state, final_states, actual_state, words_to_aprove, pilha):
+def approving_words(all_states, final_states, actual_state, words_to_aprove, pilha):
     """Função dedicada á aprovação das palavras"""
     for word in words_to_aprove:
         obj_word = Word(word)
-        calculate(all_states, init_state, final_states,
-                  actual_state, word, pilha)
-        # testar palavra
+        flag = True
+        while flag:
+            print(obj_word.word)
+            flag = calculate(all_states, final_states, actual_state, obj_word, pilha)
+            print(actual_state.state)
+            #print(actual_state.state)
+            #print(pilha)
+            
+        if len(obj_word.word)==0 and len(pilha) == 0 and actual_state.state in final_states:
+            print("! APROVADA !")
+        else:
+            print("ERROR::FITA INVÁLIDA")
