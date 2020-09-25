@@ -106,8 +106,8 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
             flag =  calculate(all_states, final_states, actual_state, obj, pilha)
         
         if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
-            print(" => FOI REPROVADA!")
+            print(backup +" => FOI REPROVADA!")
             actual_state.state = initial_state
         else:
-            print(" => ERROR::FITA INVÁLIDA")
+            print(backup +" => ERROR::FITA INVÁLIDA")
             actual_state.state = initial_state
