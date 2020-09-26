@@ -57,7 +57,6 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
                 if transition.stack_up != epsilon:
                     pilha.stack.extend([item for item in transition.stack_up])
                     actual_state.state = transition.goes_to
-                    print("Pilha: ")
                     return True
     return False
 
@@ -84,18 +83,18 @@ def approving_words(all_states, final_states, actual_state, words_to_aprove, pil
         obj_word = Word(word)
         bck_word = word
         flag = True
-        print("\n\n"+ bck_word+": ")
+        print(bck_word+": ")
         while flag:
             flag = calculate(all_states, final_states, actual_state, obj_word, pilha)
-            print("Estado atual: "+ str(actual_state.state)+"; Situação da pilha: "+ str(pilha.stack))
-            #print(pilha)
+            printer(user_option, actual_state, pilha)
+
             
         if len(obj_word.word)==0 and len(pilha.stack) == 0 and actual_state.state in final_states:
-            print(bck_word +" => FOI APROVADA !")
+            print(bck_word +" => FOI APROVADA !\n\n")
             actual_state.state = initial_state
             pilha.stack.clear()
         else:
-            print(bck_word + " => ERROR::FITA INVÁLIDA")
+            print(bck_word + " => ERROR::FITA INVÁLIDA\n\n")
             actual_state.state = initial_state
             pilha.stack.clear()
 
@@ -111,6 +110,7 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
         
         while flag:
             flag =  calculate(all_states, final_states, actual_state, obj, pilha)
+            printer(user_option, actual_state, pilha)
             
         
         if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
@@ -122,3 +122,13 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
             actual_state.state = initial_state
             pilha.stack.clear()
 
+
+def printer(user_option, actual_state, pilha):
+    """Printa as evoluções do automato"""
+    if user_option == 0:
+        print("Estado atual: "+ str(actual_state.state)+"; Situação da pilha: "+ str(pilha.stack))
+    elif user_option == 1:
+        print("Situação da pilha: "+str(pilha.stack))
+    elif user_option == 2:
+        print("Estado atual: "+ str(actual_state.state))
+    
