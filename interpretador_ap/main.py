@@ -1,6 +1,5 @@
 import automaton as atm
 import functions as fnc
-from stack import Stack
 
 epsilon = "&"
 verifi = "?"
@@ -12,7 +11,7 @@ words_to_reject = arq.get("rejeitar")  # lote de palavras para rejeitar
 init_state = arq.get("init_state")  # estado inicial
 final_states = arq.get("final_states")  # estados finais
 actual_state = atm.CurrentState(init_state)
-
+user_option = arq.get("mostrar_pilha")
 # Coletando todos os estados e suas transições
 all_states = []
 for state_item in arq["all_states"]:
@@ -24,7 +23,8 @@ for state_item in arq["all_states"]:
     state = atm.State(state_item.get("state"), transitions)
     all_states.append(state)
 
-fnc.approving_words(all_states, final_states, actual_state, words_to_aprove, pilha)
+fnc.approving_words(all_states, final_states, actual_state,
+                    words_to_aprove, pilha, user_option)
 
-fnc.rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha)
-
+#fnc.rejecting_words(all_states, final_states, actual_state,
+#                    words_to_reject, pilha, user_option)

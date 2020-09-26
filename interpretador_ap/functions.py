@@ -57,11 +57,12 @@ def calculate(all_states, final_states, actual_state, obj_word, pilha):
                 if transition.stack_up != epsilon:
                     pilha.stack.extend([item for item in transition.stack_up])
                     actual_state.state = transition.goes_to
+                    print("Pilha: ")
                     return True
     return False
 
 
-def confirmating(all_states, init_state, final_states, actual_state):
+def confirmating(all_states):
     """Confirmando autômato inserido"""
     print("Estados e suas transições")
     print("--------------------------------------")
@@ -75,7 +76,7 @@ def confirmating(all_states, init_state, final_states, actual_state):
             print("Transições:"+str(state.transitions) + ".")
             print("--------------------------------------")
 
-def approving_words(all_states, final_states, actual_state, words_to_aprove, pilha):
+def approving_words(all_states, final_states, actual_state, words_to_aprove, pilha, user_option):
     """Função dedicada á aprovação das palavras"""
     initial_state = actual_state.state
     print("-------------FITAS Á APROVAR-------------")
@@ -83,9 +84,10 @@ def approving_words(all_states, final_states, actual_state, words_to_aprove, pil
         obj_word = Word(word)
         bck_word = word
         flag = True
+        print("\n\n"+ bck_word+": ")
         while flag:
             flag = calculate(all_states, final_states, actual_state, obj_word, pilha)
-            #print(actual_state.state)
+            print("Estado atual: "+ str(actual_state.state)+"; Situação da pilha: "+ str(pilha.stack))
             #print(pilha)
             
         if len(obj_word.word)==0 and len(pilha.stack) == 0 and actual_state.state in final_states:
@@ -97,7 +99,8 @@ def approving_words(all_states, final_states, actual_state, words_to_aprove, pil
             actual_state.state = initial_state
             pilha.stack.clear()
 
-def rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha):
+
+def rejecting_words(all_states, final_states, actual_state, words_to_reject, pilha, user_option):
     """Função dedicada á reprovação das palavras"""
     initial_state = actual_state.state
     print("-------------FITAS Á REPROVAR-------------")
@@ -105,8 +108,10 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
         obj = Word(word)
         backup = word
         flag = True
+        
         while flag:
             flag =  calculate(all_states, final_states, actual_state, obj, pilha)
+            
         
         if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
             print(backup +" => FOI REPROVADA!")
