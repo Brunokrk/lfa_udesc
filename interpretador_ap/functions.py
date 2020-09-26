@@ -122,7 +122,6 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
             actual_state.state = initial_state
             pilha.stack.clear()
 
-
 def printer(user_option, actual_state, pilha):
     """Printa as evoluções do automato"""
     if user_option == 0:

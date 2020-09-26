@@ -37,5 +37,5 @@ elif mostrar_pilha == "False" and evolucao_estados == "False":
 fnc.approving_words(all_states, final_states, actual_state,
                     words_to_aprove, pilha, user_option)
 
-#fnc.rejecting_words(all_states, final_states, actual_state,
-#                    words_to_reject, pilha, user_option)
+fnc.rejecting_words(all_states, final_states, actual_state,
+                    words_to_reject, pilha, user_option)
