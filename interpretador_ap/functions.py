@@ -2,7 +2,7 @@ from json import load
 from fita import Word
 
 def open_json():
-    with open('./interpretador_ap/entrada.json', 'r') as json_file:
+    with open('entrada.json', 'r') as json_file:
         data = load(json_file)
     return data
 
@@ -94,7 +94,7 @@ def approving_words(all_states, final_states, actual_state, words_to_aprove, pil
             actual_state.state = initial_state
             pilha.stack.clear()
         else:
-            print(bck_word + " => ERROR::FITA INVÁLIDA\n\n")
+            print(bck_word + " => ERROR::FITA NÃO APROVADA\n\n")
             actual_state.state = initial_state
             pilha.stack.clear()
 
@@ -107,18 +107,18 @@ def rejecting_words(all_states, final_states, actual_state, words_to_reject, pil
         obj = Word(word)
         backup = word
         flag = True
-        
+        print(backup+": ")
         while flag:
             flag =  calculate(all_states, final_states, actual_state, obj, pilha)
             printer(user_option, actual_state, pilha)
             
         
         if len(pilha.stack)!= 0 or len(obj.word)!=0 or not actual_state.state in final_states:
-            print(backup +" => FOI REPROVADA!")
+            print(backup +" => FOI REPROVADA!\n\n")
             actual_state.state = initial_state
             pilha.stack.clear()
         else:
-            print(backup +" => ERROR::FITA INVÁLIDA")
+            print(backup +" => ERROR::FITA NÃO REPROVADA\n\n")
             actual_state.state = initial_state
             pilha.stack.clear()
 
